@@ -9,13 +9,11 @@ socket.on("connect", () => {
   socket.emit("registrarUsuario", "camarero");
 });
 
-// Recibir lista de pedidos actualizada
 socket.on("listaPedidos", (lista) => {
   pedidos = lista;
   renderPedidos(pedidos, cambiarEstado);
 });
 
-// Función para cambiar el estado de un pedido
 function cambiarEstado(id, nuevoEstado) {
   socket.emit("actualizarEstado", { id, nuevoEstado });
 }

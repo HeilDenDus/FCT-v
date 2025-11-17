@@ -2,10 +2,13 @@
 import Header from '../components/Header.astro';
 import PlateCard from '../components/PlateCard.astro';
 import Cart from '../components/Cart.astro';
+import { obtenerProductos } from '../lib/api.js';
 import '../assets/css/style.css';
+
+const productos = await obtenerProductos();
 ---
 
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,16 +27,23 @@ import '../assets/css/style.css';
 
     <section class="menu-view">
       <div class="menu-section-container">
-        <h1 class="tittle-menu-section">NIGIRIS</h1>
+        <h1 class="tittle-menu-section">PRODUCTOS</h1>
         <div class="plate-cards-container">
-          <PlateCard name="Nigiri salmon" amount="3" img="/src/assets/img/sushi.webp" />
-          <PlateCard name="Nigiri atún" amount="3" img="/src/assets/img/sushi.webp" />
+          <!-- He puesto any para que los reconozca el typscript,
+          en un futuro cuando esté hecha entera la estructura la forma correcta de hacer
+          esto es crear un tipo global en src/types/product.d.ts para que lo reconozca, 
+          porque si no ahora mismo puede entrar cualquier tipo de dato ahí -->
+          {productos.map((p : any) => (
+            <PlateCard 
+              name={p.nombre} 
+              amount={p.cantidad ?? 1} 
+              img="/src/assets/img/sushi.webp"
+            />
+          ))}
         </div>
       </div>
     </section>
 
     <Cart />
-
-    <script type="module" src="/tal.js"></script>
   </body>
 </html>

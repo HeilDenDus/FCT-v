@@ -31,10 +31,7 @@ document.getElementById("btn-enviar").addEventListener("click", () => {
 });
 
 socket.on("estadoPedido", (pedidoActualizado) => {
-    // Actualizar o agregar en el historial
     historial.actualizarPedido(pedidoActualizado);
-
-    // Renderizar
     renderHistorial(historial.obtenerHistorial());
 });
 
